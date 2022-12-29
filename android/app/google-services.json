@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "689514731055",
+    "project_id": "eleatest-78eeb",
+    "storage_bucket": "eleatest-78eeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689514731055:android:e7d886889b6da8a4d398da",
+        "android_client_info": {
+          "package_name": "com.example.eleatest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689514731055-94t3fte9c46no8hv5cbej1qb37h52djb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdsE0FnJKVY4WXio1UPUU1JII32M5EYkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689514731055-94t3fte9c46no8hv5cbej1qb37h52djb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
