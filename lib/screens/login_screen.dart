@@ -1,9 +1,11 @@
+import 'package:eleatest/components/elea_logo.dart';
 import 'package:eleatest/components/error_alert.dart';
 import 'package:eleatest/screens/complete_signup_screen.dart';
 import 'package:eleatest/screens/forgot_password_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../components/elea_text_button.dart';
 import '../components/login_header.dart';
 import '../widgets/clear_code_widget.dart';
@@ -75,87 +77,99 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const LoginHeader(
-            title: 'Don\'t Worry, Be Happy',
-            subtitle: 'Sign in to join the good vibes',
-          ),
-          const SizedBox(height: 50),
-          EleaTextBox(
-            labelText: 'Email',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter an email';
-              }
-              return null;
-            },
-            onSaved: (value) => _email = (value == null) ? '' : value,
-          ),
-          const SizedBox(height: 10),
-          EleaTextBox(
-            labelText: 'Password',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter a password';
-              }
-              return null;
-            },
-            onSaved: (value) => _password = (value == null) ? '' : value,
-            obscureText: true,
-          ),
-          const SizedBox(height: 10),
-          EleaTextButton(
-            text: 'Log in',
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                try {
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: _email,
-                    password: _password,
-                  );
-                  // if the user has signed in with a password then they are on board already
-                  final prefs = await SharedPreferences.getInstance();
-                  prefs.setBool('onboardingComplete', true);
-                  // ignore: use_build_context_synchronously
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomeScreen(),
-                    ),
-                  );
-                } catch (e) {
-                  showErrorAlert('Login error', context);
+      child: SizedBox(
+        height: 800,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const EleaLogo(),
+            EleaTextBox(
+              labelText: 'Email',
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter an email';
                 }
-              }
-            },
-          ),
-          TextButton(
-            child: const Text('Go to Signup Screen'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SignupScreen(),
+                return null;
+              },
+              onSaved: (value) => _email = (value == null) ? '' : value,
+            ),
+            const SizedBox(height: 10),
+            EleaTextBox(
+              labelText: 'Password',
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a password';
+                }
+                return null;
+              },
+              onSaved: (value) => _password = (value == null) ? '' : value,
+              obscureText: true,
+            ),
+            SizedBox(
+              height: 100,
+              width: 300,
+              child: Container(
+                margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                child: EleaTextButton(
+                  text: 'Log in',
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      try {
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: _email,
+                          password: _password,
+                        );
+                        // if the user has signed in with a password then they are on board already
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.setBool('onboardingComplete', true);
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                        );
+                      } catch (e) {
+                        showErrorAlert('Login error', context);
+                      }
+                    }
+                  },
                 ),
-              );
-            },
-          ),
-          SizedBox(height: 50),
-          TextButton(
-            child: const Text('Forgot password?'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ForgotPasswordScreen(),
-                ),
-              );
-            },
-          ),
-        ],
+              ),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle:
+                    const TextStyle(fontSize: 20, color: Color(0xfff08e57)),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SignupScreen(),
+                  ),
+                );
+              },
+              child: const Text('Go to Signup Screen'),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle:
+                    const TextStyle(fontSize: 20, color: Color(0xfff08e57)),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ForgotPasswordScreen(),
+                  ),
+                );
+              },
+              child: const Text('Forgot password?'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -180,65 +194,71 @@ class _WaitingForCodeFormState extends State<WaitingForCodeForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const LoginHeader(
-            title: 'Get In On The Action',
-            subtitle: 'Sign in to join the ride',
-          ),
-          const SizedBox(height: 50),
-          EleaTextBox(
-            labelText: 'Email',
-            initialValue: widget.email,
-            enabled: false,
-          ),
-          const SizedBox(height: 10),
-          EleaTextBox(
-            labelText: 'Code',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the code';
-              }
-              return null;
-            },
-            onSaved: (value) => _code = (value == null) ? '' : value,
-          ),
-          const SizedBox(height: 10),
-          EleaTextButton(
-            text: 'Submit code',
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                try {
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  var prefsEmail = prefs.getString('email') ?? '';
-                  var prefsCode = prefs.getString('code') ?? '';
-                  if (widget.email == prefsEmail && _code == prefsCode) {
-                    prefs.setString('email', '');
-                    prefs.setString('code', '');
-                    prefs.setBool('waitingForCode', false);
-                    // ignore: use_build_context_synchronously
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CompleteSignupScreen(
-                          email: widget.email,
-                        ),
-                      ),
-                    );
-                  } else {
-                    // alert about bad code
-                  }
-                } catch (e) {
-                  showErrorAlert('Login error', context);
+      child: Container(
+        height: 800,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const EleaLogo(),
+            const SizedBox(height: 50),
+            EleaTextBox(
+              labelText: 'Email',
+              initialValue: widget.email,
+              enabled: false,
+            ),
+            const SizedBox(height: 10),
+            EleaTextBox(
+              labelText: 'Code',
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the code';
                 }
-              }
-            },
-          ),
-          ClearCodeWidget(updateState: widget.updateState),
-        ],
+                return null;
+              },
+              onSaved: (value) => _code = (value == null) ? '' : value,
+            ),
+            SizedBox(
+              height: 100,
+              width: 300,
+              child: Container(
+                margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                child: EleaTextButton(
+                  text: 'Submit code',
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      try {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        var prefsEmail = prefs.getString('email') ?? '';
+                        var prefsCode = prefs.getString('code') ?? '';
+                        if (widget.email == prefsEmail && _code == prefsCode) {
+                          prefs.setString('email', '');
+                          prefs.setString('code', '');
+                          prefs.setBool('waitingForCode', false);
+                          // ignore: use_build_context_synchronously
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CompleteSignupScreen(
+                                email: widget.email,
+                              ),
+                            ),
+                          );
+                        } else {
+                          // alert about bad code
+                        }
+                      } catch (e) {
+                        showErrorAlert('Login error', context);
+                      }
+                    }
+                  },
+                ),
+              ),
+            ),
+            ClearCodeWidget(updateState: widget.updateState),
+          ],
+        ),
       ),
     );
   }

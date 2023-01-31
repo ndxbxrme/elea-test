@@ -13,21 +13,19 @@ class _WelcomeScreen3State extends State<WelcomeScreen3> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.asset(
-          'assets/chatbot3.png',
-          fit: BoxFit.cover,
-        ),
-        Center(
-          child: TextButton(
-            child: const Text('Go Home'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ),
-              );
-            },
+        Container(
+          margin: EdgeInsets.all(40),
+          alignment: Alignment.center,
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              text:
+                  'Just enter your age, gender and health concerns and elea will match you with someone who knows what you\'re going through.',
+              style: TextStyle(
+                color: Color(0xff344f4f),
+                fontSize: 42,
+              ),
+            ),
           ),
         ),
       ],

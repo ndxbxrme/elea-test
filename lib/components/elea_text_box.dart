@@ -33,10 +33,11 @@ class EleaTextBox extends StatelessWidget {
       child: TextFormField(
         decoration: InputDecoration(
           labelText: labelText,
+          contentPadding: EdgeInsets.fromLTRB(30.0, 20.0, 20.0, 20.0),
           fillColor: Colors.grey[200],
           filled: true,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(30.0),
           ),
         ),
         validator: validator,

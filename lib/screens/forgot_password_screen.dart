@@ -39,7 +39,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   const SizedBox(height: 75),
                   Text(
                     'Reset password',
-                    style: GoogleFonts.bebasNeue(fontSize: 52),
+                    style: GoogleFonts.getFont('Poppins', fontSize: 52),
                   ),
                   const SizedBox(height: 10),
                   const Text(

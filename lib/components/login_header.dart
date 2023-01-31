@@ -9,14 +9,10 @@ class LoginHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      const Icon(
-        Icons.android,
-        size: 100,
-      ),
       const SizedBox(height: 75),
       Text(
         title,
-        style: GoogleFonts.bebasNeue(fontSize: 52),
+        style: GoogleFonts.getFont('Poppins', fontSize: 52),
       ),
       const SizedBox(height: 10),
       Text(

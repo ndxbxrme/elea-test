@@ -1,4 +1,6 @@
+import 'package:eleatest/components/elea_logo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class WelcomeScreen1 extends StatefulWidget {
   const WelcomeScreen1({super.key});
@@ -10,10 +12,6 @@ class WelcomeScreen1 extends StatefulWidget {
 class _WelcomeScreen1State extends State<WelcomeScreen1> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: const [
-        Center(child: Text('YOOO')),
-      ],
-    );
+    return EleaLogo();
   }
 }

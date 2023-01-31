@@ -10,6 +10,31 @@ class WelcomeScreen2 extends StatefulWidget {
 class _WelcomeScreen2State extends State<WelcomeScreen2> {
   @override
   Widget build(BuildContext context) {
-    return Image.asset('assets/chatbot2.png');
+    return Stack(
+      children: [
+        Container(
+          margin: EdgeInsets.all(40),
+          alignment: Alignment.center,
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+                text: 'elea\n',
+                style: TextStyle(
+                  color: Color(0xffb2d4bf),
+                  fontSize: 100,
+                ),
+                children: const <TextSpan>[
+                  TextSpan(
+                      text:
+                          'connects people living with the same health conditions',
+                      style: TextStyle(
+                        color: Color(0xff344f4f),
+                        fontSize: 50,
+                      )),
+                ]),
+          ),
+        ),
+      ],
+    );
   }
 }

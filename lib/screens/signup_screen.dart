@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
+import '../components/elea_logo.dart';
 import '../components/elea_text_box.dart';
 import '../components/elea_text_button.dart';
 import 'login_screen.dart';
@@ -24,25 +25,19 @@ class _SignupScreenState extends State<SignupScreen> {
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: KeyboardSafeViewWidget(
-          child: Center(
+          child: SizedBox(
+            height: 800,
             child: Form(
               key: _formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.android,
-                    size: 100,
-                  ),
-                  const SizedBox(height: 75),
-                  Text(
-                    'Sign up',
-                    style: GoogleFonts.bebasNeue(fontSize: 52),
-                  ),
-                  const SizedBox(height: 10),
+                  const EleaLogo(),
                   const Text(
-                    'Friendly subtitle, you\'re looking great',
+                    'Register with elea',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 30,
+                      color: Color(0xfff08e57),
                     ),
                   ),
                   const SizedBox(height: 50),
@@ -56,27 +51,33 @@ class _SignupScreenState extends State<SignupScreen> {
                     },
                     onSaved: (value) => _email = (value == null) ? '' : value,
                   ),
-                  const SizedBox(height: 10),
-                  EleaTextButton(
-                    text: 'Get a code',
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        prefs.setString('email', _email);
-                        var code = _generateCode();
-                        prefs.setString('code', code);
-                        prefs.setBool('waitingForCode', true);
-                        // ignore: use_build_context_synchronously
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
-                      }
-                    },
+                  SizedBox(
+                    height: 100,
+                    width: 300,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                      child: EleaTextButton(
+                        text: 'Get a code',
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            prefs.setString('email', _email);
+                            var code = _generateCode();
+                            prefs.setString('code', code);
+                            prefs.setBool('waitingForCode', true);
+                            // ignore: use_build_context_synchronously
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
                   ),
                 ],
               ),

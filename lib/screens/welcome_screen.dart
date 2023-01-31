@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'welcome_screen_1.dart';
 import 'welcome_screen_2.dart';
 import 'welcome_screen_3.dart';
+import 'welcome_screen_4.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -22,20 +23,29 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Column(
         children: [
-          Center(
-            child: Lottie.network(
-                'https://assets3.lottiefiles.com/packages/lf20_fjv8qxqn.json'),
+          SizedBox(
+            height: 800,
+            child: PageView(
+              controller: _pageController,
+              children: const [
+                WelcomeScreen1(),
+                WelcomeScreen2(),
+                WelcomeScreen3(),
+                WelcomeScreen4(),
+              ],
+            ),
           ),
-          PageView(
-            controller: _pageController,
-            children: const [
-              WelcomeScreen1(),
-              WelcomeScreen2(),
-              WelcomeScreen3(),
-            ],
-          ),
+          SmoothPageIndicator(
+              controller: _pageController, // PageController
+              count: 4,
+              effect: WormEffect(
+                dotColor: Colors.grey,
+                activeDotColor: Color(0xfff08e57),
+              ),
+              onDotClicked: (index) {}),
         ],
       ),
     );

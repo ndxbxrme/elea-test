@@ -52,6 +52,8 @@ dependencies:
   easy_debounce: ^2.0.2+1
   profanity_filter: ^2.0.0
   flutter_slidable: ^2.0.0
+  flutter_svg: ^1.1.6
+  material: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:
