@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Scaffold(
                   backgroundColor: Theme.of(context).backgroundColor,
                   appBar: AppBar(
-                    title: const Text('Home'),
+                    title: const Text('elea'),
                     // Add a back button to the app bar
                     leading: _isTopScreen
                         ? null
@@ -110,29 +110,45 @@ class _HomeScreenState extends State<HomeScreen> {
                     // Add a pop-out menu to the app bar
                     actions: [
                       PopupMenuButton<int>(
+                        color: Color(0xff344f4f),
+                        constraints: BoxConstraints(
+                            minWidth: MediaQuery.of(context).size.width),
+                        offset: const Offset(20, 100),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
                         child: CircleAvatar(
                             backgroundImage:
                                 NetworkImage(currentUser["avatarUrl"])),
                         itemBuilder: (context) => [
                           const PopupMenuItem(
                             value: 1,
-                            child: Text('Profile'),
+                            child: Text('Profile',
+                                style: TextStyle(
+                                    color: Color(0xffeff6f2), fontSize: 16.0)),
                           ),
                           const PopupMenuItem(
                             value: 2,
-                            child: Text('Settings'),
+                            child: Text('Settings',
+                                style: TextStyle(
+                                    color: Color(0xffeff6f2), fontSize: 16.0)),
                           ),
                           const PopupMenuItem(
                             value: 3,
-                            child: Text('Log Out'),
+                            child: Text('Log Out',
+                                style: TextStyle(
+                                    color: Color(0xffeff6f2), fontSize: 16.0)),
                           ),
                           const PopupMenuItem(
                             value: 4,
-                            child: Text('Admin'),
+                            child: Text('Admin',
+                                style: TextStyle(
+                                    color: Color(0xffeff6f2), fontSize: 16.0)),
                           ),
                           const PopupMenuItem(
                             value: 5,
-                            child: Text('About us'),
+                            child: Text('About us',
+                                style: TextStyle(
+                                    color: Color(0xffeff6f2), fontSize: 16.0)),
                           )
                         ],
                         onSelected: (value) async {

@@ -63,43 +63,65 @@ class SharedTagsListWidget extends StatelessWidget {
           return Container();
         }
 
-        return Container(
-          decoration: BoxDecoration(color: Colors.red[200]),
-          height: 100,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Text('Your matched users'),
-              Flexible(
-                fit: FlexFit.tight,
-                child: ListView.builder(
-                  itemCount: users.length,
-                  itemBuilder: (context, index) {
-                    final user = users[index]['data'];
-                    final intersection = users[index]['intersection'];
-                    final username = user['username'];
-                    final avatarUrl = user['avatarUrl'];
-                    final userId = user['uid'];
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(avatarUrl),
-                      ),
-                      title: Text(username),
-                      subtitle: Text('$intersection shared tags'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                MatchedUserScreen(userId: userId),
+        return SingleChildScrollView(
+          child: Container(
+            constraints: BoxConstraints(
+              maxHeight: 300,
+            ),
+            padding: EdgeInsets.only(top: 10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Text(
+                  'Your connections',
+                  style: TextStyle(color: Color(0xfff08e57), fontSize: (20)),
+                ),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: Container(
+                    height: 100,
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        color: Color(0xfff08e57),
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    child: ListView.builder(
+                      itemCount: users.length,
+                      itemBuilder: (context, index) {
+                        final user = users[index]['data'];
+                        final intersection = users[index]['intersection'];
+                        final username = user['username'];
+                        final avatarUrl = user['avatarUrl'];
+                        final userId = user['uid'];
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(avatarUrl),
                           ),
+                          title: Text(
+                            username,
+                            style: TextStyle(color: Color(0xff344f4f)),
+                          ),
+                          subtitle: Text(
+                            '$intersection shared tags',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: (12)),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    MatchedUserScreen(userId: userId),
+                              ),
+                            );
+                          },
                         );
                       },
-                    );
-                  },
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

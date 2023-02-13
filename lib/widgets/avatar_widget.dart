@@ -38,7 +38,17 @@ class _AvatarWidgetState extends State<AvatarWidget> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: NetworkImage(avatarUrl),
+              image: avatarUrl.isEmpty
+                  ? Text(
+                      FirebaseAuth.instance.currentUser?.displayName
+                              ?.substring(0, 1) ??
+                          '',
+                      style: TextStyle(
+                        fontSize: 100,
+                        color: Colors.grey[300],
+                      ),
+                    ) as ImageProvider
+                  : NetworkImage(avatarUrl),
               fit: BoxFit.cover,
             ),
           ),

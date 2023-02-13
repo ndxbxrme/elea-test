@@ -1,3 +1,4 @@
+import 'package:eleatest/helpers/fetch_current_user_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:eleatest/screens/onboarding_screen_1.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +74,12 @@ class EleaApp extends StatelessWidget {
     return MaterialApp(
       title: 'Elea test',
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          backgroundColor: colorDarkGreen,
+          foregroundColor: Colors.white,
+          titleTextStyle: TextStyle(fontSize: 45),
+          toolbarHeight: 80.0,
+        ),
         primaryColor: colorDarkGreen,
         accentColor: colorGreen,
         splashColor: colorOrange,
